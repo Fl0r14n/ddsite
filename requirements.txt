@@ -1,0 +1,32 @@
+# framework
+django
+django-treebeard
+django-extensions
+django-phonenumber-field
+django-geoposition
+django-cleanup
+django-colorful
+django-ckeditor
+werkzeug
+django-mptt
+django-mptt-admin
+
+
+# db
+#psycopg2
+
+
+# rest
+django-oauth-toolkit
+django-cors-headers
+django-tastypie
+
+# debug
+ipdb
+ipython
+
+# util
+Pillow
+lxml
+pykml
+requests
