@@ -1,8 +1,8 @@
 from django.core.files import File
 from django.core.management import BaseCommand
+from django.contrib.gis.geos import Point
 
 from dao.models import *
-from geoposition.fields import Geoposition
 import os
 import requests
 import tempfile
@@ -78,7 +78,7 @@ class Command(BaseCommand):
             city='Munchen',
             defaults={
                 'name': 'DialogData GmbH & Co. KG',
-                'coordinates': Geoposition(48.13873204565224, 11.527860760688782),
+                'coordinates': Point(11.527860760688782, 48.13873204565224),
                 'country': Country.objects.get(iso='de'),
                 'city': 'Munchen',
                 'address': 'Barthstr. 18',
@@ -92,7 +92,7 @@ class Command(BaseCommand):
             city='Berlin',
             defaults={
                 'name': 'DialogData GmbH & Co. KG',
-                'coordinates': Geoposition(52.5341205, 13.3950019),
+                'coordinates': Point(13.3950019, 52.5341205),
                 'country': Country.objects.get(iso='de'),
                 'city': 'Berlin',
                 'address': 'Anklamer Straße 5',
@@ -105,7 +105,7 @@ class Command(BaseCommand):
             city='Timisoara',
             defaults={
                 'name': 'DialogData GmbH & Co. KG',
-                'coordinates': Geoposition(45.744471, 21.233235),
+                'coordinates': Point(21.233235, 45.744471),
                 'country': Country.objects.get(iso='ro'),
                 'city': 'Timisoara',
                 'address': 'Str. Putna nr. 6',

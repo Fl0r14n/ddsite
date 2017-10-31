@@ -3,13 +3,14 @@ django
 django-treebeard
 django-extensions
 django-phonenumber-field
-django-geoposition
+django-map-widgets
 django-cleanup
 django-colorful
 django-ckeditor
 werkzeug
 django-mptt
 django-mptt-admin
+gdal
 
 
 # db

@@ -35,12 +35,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.gis',
     'django_extensions',
     'django_cleanup',
     'colorful',
     'ckeditor',
     'phonenumber_field',
-    'geoposition',
+    'mapwidgets',
     'mptt',
     'django_mptt_admin',
     'oauth2_provider',
@@ -85,9 +86,11 @@ WSGI_APPLICATION = 'ddsite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
+SPATIALITE_LIBRARY_PATH = 'mod_spatialite'
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.contrib.gis.db.backends.spatialite',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
     #    'postgres': {
@@ -149,7 +152,12 @@ if DEBUG:
     # TEMPLATE_STRING_IF_INVALID = django.utils.safestring.mark_safe("")
     TASTYPIE_FULL_DEBUG = True
 
-GEOPOSITION_GOOGLE_MAPS_API_KEY = 'AIzaSyDxs4-UYxuZjm-etXo9Utsm8z9hwScCWlQ'
-
-# GEOPOSITION_MAP_OPTIONS = {
-# }
+MAP_WIDGETS = {
+    "GooglePointFieldWidget": (
+        ("zoom", 15),
+        ("mapCenterLocation", [51.5073509, -0.12775829999998223]),
+        ("markerFitZoom", 11),
+        ("GooglePlaceAutocompleteOptions", {'componentRestrictions': {'country': 'uk'}})
+    ),
+    "GOOGLE_MAP_API_KEY": 'AIzaSyDxs4-UYxuZjm-etXo9Utsm8z9hwScCWlQ',
+}

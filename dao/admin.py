@@ -1,4 +1,5 @@
 from django.contrib import admin
+from mapwidgets import GooglePointFieldWidget
 
 from dao.models import *
 
@@ -37,21 +38,9 @@ class PlaceAdmin(admin.ModelAdmin):
             'fields': ('image', 'coordinates')
         })
     )
-
-    def coordinates(self, instance):
-        import ipdb;
-        ipdb.set_trace()
-        if instance.position is not None:
-            return '<img src="//maps.googleapis.com/maps/api/staticmap?center=%(latitude)s,%(longitude)s&zoom=%(zoom)s&size=%(width)sx%(height)s&maptype=roadmap&markers=%(latitude)s,%(longitude)s&sensor=false&visual_refresh=true&scale=%(scale)s" width="%(width)s" height="%(height)s">' % {
-                'latitude': instance.position.latitude,
-                'longitude': instance.position.longitude,
-                'zoom': 15,
-                'width': 100,
-                'height': 100,
-                'scale': 2
-            }
-
-    coordinates.allow_tags = True
+    formfield_overrides = {
+        models.PointField: {"widget": GooglePointFieldWidget}
+    }
 
 
 @admin.register(Contact)

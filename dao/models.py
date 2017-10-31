@@ -1,6 +1,6 @@
 from django.db import models
+from django.contrib.gis.db import models
 from phonenumber_field.modelfields import PhoneNumberField
-from geoposition.fields import GeopositionField
 from colorful.fields import RGBColorField
 from ckeditor.fields import RichTextField
 
@@ -40,7 +40,7 @@ class Country(models.Model):
 
 class Place(models.Model):
     name = models.CharField(max_length=64, help_text='Place label')
-    coordinates = GeopositionField(blank=True, help_text='Place location on the map')
+    coordinates = models.PointField(blank=True, help_text='Place location on the map')
     country = models.ForeignKey(Country, null=True, blank=True, help_text='Country where this place is located')
     city = models.CharField(default='', blank=True, max_length=128, help_text='City where this place is located')
     address = models.CharField(default='', blank=True, max_length=128, help_text='Address')
