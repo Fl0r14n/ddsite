@@ -9,7 +9,53 @@ authorization = ReadOnlyAuthorization()
 serializer = CamelCaseJSONSerializer()
 
 
-class BlogResource(ModelResource):
+class ImageResource(ModelResource):
+    class Meta:
+        queryset = Image.objects.all()
+        resource_name = 'image'
+        paginator_class = Paginator
+        authorization = authorization
+        serializer = serializer
+
+
+class CountryResource(ModelResource):
+    class Meta:
+        queryset = Country.objects.all()
+        resource_name = 'country'
+        paginator_class = Paginator
+        authorization = authorization
+        serializer = serializer
+
+
+class PlaceResource(ModelResource):
+    country = fields.ToOneField(CountryResource, 'country', null=True, blank=True, full=True)
+
+    class Meta:
+        queryset = Place.objects.all()
+        resource_name = 'place'
+        paginator_class = Paginator
+        authorization = authorization
+        serializer = serializer
+
+    def dehydrate_coordinates(self, bundle):
+        return {
+            'latitude': bundle.obj.coordinates.y,
+            'longitude': bundle.obj.coordinates.x
+        }
+
+
+class ArticleResource(ModelResource):
+    images = fields.ToManyField(ImageResource, 'images', null=True, blank=True, full=True)
+
+    class Meta:
+        queryset = Article.objects.all()
+        resource_name = 'article'
+        paginator_class = Paginator
+        authorization = authorization
+        serializer = serializer
+
+
+class BlogResource(ArticleResource):
     class Meta:
         queryset = Blog.objects.all()
         resource_name = 'blog'
@@ -18,7 +64,7 @@ class BlogResource(ModelResource):
         serializer = serializer
 
 
-class BusinessDomainResource(ModelResource):
+class BusinessDomainResource(ArticleResource):
     class Meta:
         queryset = BusinessDomain.objects.all()
         resource_name = 'domain'
@@ -27,7 +73,7 @@ class BusinessDomainResource(ModelResource):
         serializer = serializer
 
 
-class ClientResource(ModelResource):
+class ClientResource(ArticleResource):
     class Meta:
         queryset = Client.objects.all()
         resource_name = 'client'
@@ -36,7 +82,7 @@ class ClientResource(ModelResource):
         serializer = serializer
 
 
-class ExpertiseResource(ModelResource):
+class ExpertiseResource(ArticleResource):
     class Meta:
         queryset = Expertise.objects.all()
         resource_name = 'expertise'
@@ -45,7 +91,7 @@ class ExpertiseResource(ModelResource):
         serializer = serializer
 
 
-class EventResource(ModelResource):
+class EventResource(ArticleResource):
     class Meta:
         queryset = Event.objects.all()
         resource_name = 'event'
@@ -54,7 +100,7 @@ class EventResource(ModelResource):
         serializer = serializer
 
 
-class PositionResource(ModelResource):
+class PositionResource(ArticleResource):
     class Meta:
         queryset = Job.objects.all()
         resource_name = 'position'
@@ -63,7 +109,7 @@ class PositionResource(ModelResource):
         serializer = serializer
 
 
-class ContactResource(ModelResource):
+class ContactResource(PlaceResource):
     class Meta:
         queryset = Contact.objects.all()
         resource_name = 'contact'
