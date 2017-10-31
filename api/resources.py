@@ -3,9 +3,11 @@ from tastypie import fields
 from dao.models import *
 from tastypie.paginator import Paginator
 from tastypie.authorization import ReadOnlyAuthorization
-from tastypie.constants import ALL, ALL_WITH_RELATIONS
+from api.serializers import CamelCaseJSONSerializer
 
 authorization = ReadOnlyAuthorization()
+serializer = CamelCaseJSONSerializer()
+
 
 class BlogResource(ModelResource):
     class Meta:
@@ -13,6 +15,7 @@ class BlogResource(ModelResource):
         resource_name = 'blog'
         paginator_class = Paginator
         authorization = authorization
+        serializer = serializer
 
 
 class BusinessDomainResource(ModelResource):
@@ -21,6 +24,7 @@ class BusinessDomainResource(ModelResource):
         resource_name = 'domain'
         paginator_class = Paginator
         authorization = authorization
+        serializer = serializer
 
 
 class ClientResource(ModelResource):
@@ -29,6 +33,7 @@ class ClientResource(ModelResource):
         resource_name = 'client'
         paginator_class = Paginator
         authorization = authorization
+        serializer = serializer
 
 
 class ExpertiseResource(ModelResource):
@@ -37,6 +42,7 @@ class ExpertiseResource(ModelResource):
         resource_name = 'expertise'
         paginator_class = Paginator
         authorization = authorization
+        serializer = serializer
 
 
 class EventResource(ModelResource):
@@ -45,6 +51,7 @@ class EventResource(ModelResource):
         resource_name = 'event'
         paginator_class = Paginator
         authorization = authorization
+        serializer = serializer
 
 
 class PositionResource(ModelResource):
@@ -53,6 +60,7 @@ class PositionResource(ModelResource):
         resource_name = 'position'
         paginator_class = Paginator
         authorization = authorization
+        serializer = serializer
 
 
 class ContactResource(ModelResource):
@@ -61,3 +69,4 @@ class ContactResource(ModelResource):
         resource_name = 'contact'
         paginator_class = Paginator
         authorization = authorization
+        serializer = serializer
