@@ -3,11 +3,14 @@ cms like backend for company presentation site
 
 ###How To
 
-gdal library needs to be installed on your machine
+libspatialite and gdal libraries needs to be installed on your machine
+
+also depending on your system might require to change 
+```SPATIALITE_LIBRARY_PATH``` in settings.py
 
 ```aidl
-    ./manage.sh migrate --run-syncdb
-    ./manage.sh createsuperuser
-    ./manage.sh sample_data
-    ./manage.sh runserver_plus
+    ./manage.py migrate --run-syncdb
+    ./manage.py createsuperuser
+    ./manage.py sample_data
+    ./manage.py runserver_plus
 ```

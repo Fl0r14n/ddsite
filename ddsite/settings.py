@@ -86,7 +86,8 @@ WSGI_APPLICATION = 'ddsite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-SPATIALITE_LIBRARY_PATH = 'mod_spatialite'
+# SPATIALITE_LIBRARY_PATH = 'mod_spatialite'
+SPATIALITE_LIBRARY_PATH = '/usr/lib/mod_spatialite.so'
 
 DATABASES = {
     'default': {

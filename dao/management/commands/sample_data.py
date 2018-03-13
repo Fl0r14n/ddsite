@@ -21,6 +21,7 @@ class Command(BaseCommand):
     def download_file_from_url(self, url):
         filename = os.path.basename(url)
         try:
+            print('Fetching... ' + url)
             request = requests.get(url, stream=True)
         except requests.exceptions.RequestException as e:
             return None
@@ -53,6 +54,7 @@ class Command(BaseCommand):
         return result
 
     def generate_countries(self):
+        print('Generating countries...')
         country, created = Country.objects.update_or_create(
             iso='de',
             defaults={
@@ -74,6 +76,7 @@ class Command(BaseCommand):
             country.flag.save(image[0], image[1], save=True)
 
     def generate_contacts(self):
+        print('Generating contacts...')
         Contact.objects.update_or_create(
             city='Munchen',
             defaults={
@@ -116,6 +119,7 @@ class Command(BaseCommand):
         )
 
     def generate_careers(self):
+        print('Generating careers...')
         Job.objects.update_or_create(
             title='eCommerce / SAP / hybris',
             defaults={
@@ -154,6 +158,7 @@ class Command(BaseCommand):
         )
 
     def generate_clients(self):
+        print('Generating clients...')
         Client.objects.update_or_create(
             title='BMW',
             defaults={
@@ -376,6 +381,7 @@ class Command(BaseCommand):
         )
 
     def generate_business_domains(self):
+        print('Generating business domains...')
         BusinessDomain.objects.update_or_create(
             title='Media',
             defaults={
@@ -428,10 +434,10 @@ class Command(BaseCommand):
         )
 
     def generate_events(self):
+        print('Generating events...')
         images = [
             'http://www.amdbihor.ro/wp-content/uploads/2016/08/Team-outdoor-race-bihor-2016-7-650x400.jpg',
             'http://www.amdbihor.ro/wp-content/uploads/2016/08/Screenshot-2016-08-10-12.39.44.png',
-            'https://scontent-frx5-1.xx.fbcdn.net/v/t31.0-8/20424215_1493915730669732_1300636427995537497_o.jpg?oh=f79de664c29fcf46d595f405ccb82d31&oe=5A5F50FB',
         ]
         event, created = Event.objects.update_or_create(
             title='TOR 2017',
@@ -441,7 +447,7 @@ class Command(BaseCommand):
             }
         )
         if created:
-            event.images = self.create_images(images)
+            event.images.set(self.create_images(images))
             event.save()
 
         images = [
@@ -458,7 +464,7 @@ class Command(BaseCommand):
             }
         )
         if created:
-            event.images = self.create_images(images)
+            event.images.set(self.create_images(images))
             event.save()
 
         images = [
@@ -475,11 +481,11 @@ class Command(BaseCommand):
             }
         )
         if created:
-            event.images = self.create_images(images)
+            event.images.set(self.create_images(images))
             event.save()
 
-    @staticmethod
-    def generate_expertise():
+    def generate_expertise(self):
+        print('Generating expertise...')
         Expertise.objects.update_or_create(
             title='Java Enterprise',
             defaults={
@@ -532,6 +538,7 @@ class Command(BaseCommand):
         )
 
     def generate_business_domains(self):
+        print('Generating business domains...')
         BusinessDomain.objects.update_or_create(
             title='Media',
             defaults={

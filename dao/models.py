@@ -1,8 +1,7 @@
-from django.db import models
+from ckeditor.fields import RichTextField
+from colorful.fields import RGBColorField
 from django.contrib.gis.db import models
 from phonenumber_field.modelfields import PhoneNumberField
-from colorful.fields import RGBColorField
-from ckeditor.fields import RichTextField
 
 
 def to_string(self):
@@ -41,7 +40,11 @@ class Country(models.Model):
 class Place(models.Model):
     name = models.CharField(max_length=64, help_text='Place label')
     coordinates = models.PointField(blank=True, help_text='Place location on the map')
-    country = models.ForeignKey(Country, null=True, blank=True, help_text='Country where this place is located')
+    country = models.ForeignKey(Country,
+                                null=True,
+                                blank=True,
+                                help_text='Country where this place is located',
+                                on_delete=models.DO_NOTHING)
     city = models.CharField(default='', blank=True, max_length=128, help_text='City where this place is located')
     address = models.CharField(default='', blank=True, max_length=128, help_text='Address')
     postal_code = models.CharField(default='', blank=True, max_length=10, help_text='Postal Code')
@@ -67,7 +70,11 @@ class Article(models.Model):
     title = models.CharField(max_length=64, help_text='Article title')
     subtitle = models.CharField(default='', blank=True, max_length=64, help_text='Article subtitle')
     description = RichTextField(default='', blank=True, help_text='Article content')
-    place = models.ForeignKey(Place, null=True, blank=True, help_text='Assign a place to the article if any')
+    place = models.ForeignKey(Place,
+                              null=True,
+                              blank=True,
+                              help_text='Assign a place to the article if any',
+                              on_delete=models.DO_NOTHING)
     image = models.ImageField(null=True, blank=True, help_text='Main article image')
     images = models.ManyToManyField(Image, blank=True, help_text='Collection of images for the article')
     link = models.URLField(default='', blank=True, help_text='External reference for the article')
